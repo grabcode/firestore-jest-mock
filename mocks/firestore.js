@@ -28,6 +28,11 @@ function buildDocFromHash(hash = {}) {
   return {
     exists: !!hash || false,
     id: hash.id || 'abc123',
+    set(attrs, options) {
+      const { merge } = options || {};
+      const copy = !merge ? { ...attrs } : { ...hash, ...attrs };
+      return copy;
+    },
     data() {
       const copy = { ...hash };
       delete copy.id;
